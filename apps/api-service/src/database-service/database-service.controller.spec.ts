@@ -11,7 +11,9 @@ describe('DatabaseServiceController', () => {
       providers: [DatabaseServiceService],
     }).compile();
 
-    controller = module.get<DatabaseServiceController>(DatabaseServiceController);
+    controller = module.get<DatabaseServiceController>(
+      DatabaseServiceController,
+    );
   });
 
   it('should be defined', () => {

@@ -11,7 +11,9 @@ describe('DatabaseServiceController', () => {
       providers: [DatabaseServiceService],
     }).compile();
 
-    databaseServiceController = app.get<DatabaseServiceController>(DatabaseServiceController);
+    databaseServiceController = app.get<DatabaseServiceController>(
+      DatabaseServiceController,
+    );
   });
 
   describe('root', () => {
