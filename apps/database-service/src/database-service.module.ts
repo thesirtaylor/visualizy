@@ -4,6 +4,7 @@ import { DatabaseServiceService } from './database-service.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import DatabaseConfig from './database.config';
+import { Bank } from '@nest-microservices/shared/entity';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import DatabaseConfig from './database.config';
       useFactory: async (configService: ConfigService) => ({
         dialect: 'postgres',
         uri: configService.get<string>('database.uri'),
-        models: [],
+        models: [Bank],
         autoLoadModels: true,
         synchronize: true,
       }),

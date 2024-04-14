@@ -3,17 +3,17 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class CreateBankDto {
   @IsString()
   @IsNotEmpty()
-  name;
+  name: string;
 
   @IsString()
   @IsNotEmpty()
-  bic;
+  bic: string;
 
   @IsString()
   @IsNotEmpty()
-  integrationbaseUrl;
+  integrationbaseUrl: string;
 
   @IsNotEmpty()
   @IsNotEmpty()
-  certificationNumber;
+  certificationNumber: string;
 }
