@@ -23,7 +23,9 @@
       ],
       "defaultLibraryPrefix/shared/*": [
         "libs/shared/src/*"
-      ]
+      ],
+        "@nest-microservices/shared/dto": ["libs/shared/src/lib/dto/index.ts"],
+        "@nest-microservices/shared/entity": ["libs/shared/src/lib/entity/index.ts"]
     }
   }
 }
