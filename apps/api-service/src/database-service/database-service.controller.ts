@@ -4,10 +4,13 @@ import {
   Get,
   Param,
   Post,
+  UseFilters,
   ValidationPipe,
 } from '@nestjs/common';
 import { DatabaseServiceService } from './database-service.service';
 import { CreateBankDto } from '@nest-microservices/shared/dto';
+import { AllExceptionsFilter } from './exception-filters/wildcard.exception.filters';
+import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 
 @Controller('bank')
 export class DatabaseServiceController {
@@ -16,17 +19,35 @@ export class DatabaseServiceController {
   ) {}
 
   @Post()
+  @UseFilters(AllExceptionsFilter)
   CreateBank(@Body(ValidationPipe) createBankDto: CreateBankDto) {
-    return this.databaseServiceService.createBank(createBankDto);
+    try {
+      this.databaseServiceService.createBank(createBankDto);
+      return { message: 'request ssuccessful' };
+    } catch (error) {
+      throw new ExceptionsHandler(error);
+    }
   }
 
   @Get(':bic')
+  @UseFilters(AllExceptionsFilter)
   FetchBank(@Param('bic') bic: string) {
-    return this.databaseServiceService.getBank(bic);
+    try {
+      this.databaseServiceService.getBank(bic);
+      return { message: 'request successful' };
+    } catch (error) {
+      throw new ExceptionsHandler(error);
+    }
   }
 
   @Get()
+  @UseFilters(AllExceptionsFilter)
   FetchBanks() {
-    return this.databaseServiceService.getBanks();
+    try {
+      this.databaseServiceService.getBanks();
+      return { message: 'request successful' };
+    } catch (error) {
+      throw new ExceptionsHandler(error);
+    }
   }
 }

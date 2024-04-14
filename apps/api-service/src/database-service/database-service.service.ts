@@ -21,7 +21,7 @@ export class DatabaseServiceService implements OnModuleInit {
   getBank(bic: string) {
     this.dbclient
       .send('get_bank', JSON.stringify({ bic }))
-      .subscribe((bank: Bank) => {
+      .subscribe(async (bank: Bank) => {
         console.log(bank);
       });
   }
