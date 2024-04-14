@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import DatabaseConfig from './database.config';
 import { Bank } from '@nest-microservices/shared/entity';
+import { BanksProviders } from './database.providers';
 
 @Module({
   imports: [
@@ -24,6 +25,6 @@ import { Bank } from '@nest-microservices/shared/entity';
     }),
   ],
   controllers: [DatabaseServiceController],
-  providers: [DatabaseServiceService],
+  providers: [DatabaseServiceService, ...BanksProviders],
 })
 export class DatabaseServiceModule {}

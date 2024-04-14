@@ -14,7 +14,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         options: {
           client: {
             clientId: 'database',
-            brokers: [''],
+            brokers: ['localhost:9092'],
           },
           consumer: {
             groupId: 'database-consumer',

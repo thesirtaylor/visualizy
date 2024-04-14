@@ -1,23 +1,28 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
+import { Inject, Injectable } from '@nestjs/common';
+// import { InjectModel } from '@nestjs/sequelize';
 import { Bank } from '@nest-microservices/shared/entity';
 import { CreateBankDto } from '@nest-microservices/shared/dto';
 
 @Injectable()
 export class DatabaseServiceService {
-  constructor(
-    @InjectModel(Bank) private readonly bankRepository: typeof Bank,
-  ) {}
+  constructor(@Inject('BANKS_PROVIDERS') private bankRepository: typeof Bank) {}
 
   async create(bank: CreateBankDto) {
-    return this.bankRepository.create({ ...bank });
+    const data = (await this.bankRepository.create({ ...bank })).get({
+      plain: true,
+    });
+    return data;
   }
 
   async findOne(bic: string): Promise<Bank> {
-    return this.bankRepository.findOne({ where: { bic } });
+    const data = (await this.bankRepository.findOne({ where: { bic } })).get({
+      plain: true,
+    });
+    console.log(data);
+    return data;
   }
 
   async findAll(): Promise<Array<Bank>> {
-    return this.bankRepository.findAll({});
+    return await this.bankRepository.findAll({});
   }
 }
