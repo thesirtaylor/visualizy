@@ -13,7 +13,7 @@ export class CreateBankDto {
   @IsNotEmpty()
   integrationbaseUrl: string;
 
-  @IsNotEmpty()
+  @IsString()
   @IsNotEmpty()
   certificationNumber: string;
 }
