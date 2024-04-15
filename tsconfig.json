@@ -18,14 +18,10 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "defaultLibraryPrefix/shared": [
-        "libs/shared/src"
-      ],
-      "defaultLibraryPrefix/shared/*": [
-        "libs/shared/src/*"
-      ],
         "@nest-microservices/shared/dto": ["libs/shared/src/lib/dto/index.ts"],
-        "@nest-microservices/shared/entity": ["libs/shared/src/lib/entity/index.ts"]
+        "@nest-microservices/shared/entity": ["libs/shared/src/lib/entity/index.ts"],
+        "@nest-microservices/shared/exception": ["libs/shared/src/lib/exception-filters/index.ts"],
+        "@nest-microservices/shared/config": ["libs/shared/src/lib/configs/index.ts"],
     }
   }
 }
