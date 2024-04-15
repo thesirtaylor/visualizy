@@ -3,10 +3,11 @@ import { DatabaseServiceService } from './database-service.service';
 import { DatabaseServiceController } from './database-service.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AuthGuard } from './auth-guards.ts/auth-guard';
+import { AppRedisService } from 'libs/shared/src/lib/redis/redis.service';
 
 @Module({
   controllers: [DatabaseServiceController],
-  providers: [DatabaseServiceService, AuthGuard],
+  providers: [DatabaseServiceService, AuthGuard, AppRedisService],
   imports: [
     ClientsModule.register([
       {

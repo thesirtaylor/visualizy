@@ -10,8 +10,7 @@ import {
 } from '@nestjs/common';
 import { DatabaseServiceService } from './database-service.service';
 import { CreateBankDto } from '@nest-microservices/shared/dto';
-import { AllExceptionsFilter } from './exception-filters/wildcard.exception.filters';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
+import { AllHttpExceptionsFilter } from '@nest-microservices/shared/exception';
 import { AuthGuard } from './auth-guards.ts/auth-guard';
 
 @Controller('bank')
@@ -22,36 +21,24 @@ export class DatabaseServiceController {
 
   @Post()
   @UseGuards(AuthGuard)
-  @UseFilters(AllExceptionsFilter)
-  CreateBank(@Body(ValidationPipe) createBankDto: CreateBankDto) {
-    try {
-      this.databaseServiceService.createBank(createBankDto);
-      return { message: 'request ssuccessful' };
-    } catch (error) {
-      throw new ExceptionsHandler(error);
-    }
+  @UseFilters(AllHttpExceptionsFilter)
+  async CreateBank(@Body(ValidationPipe) createBankDto: CreateBankDto) {
+    await this.databaseServiceService.createBank(createBankDto);
+    return;
   }
 
   @Get(':bic')
   @UseGuards(AuthGuard)
-  @UseFilters(AllExceptionsFilter)
-  FetchBank(@Param('bic') bic: string) {
-    try {
-      this.databaseServiceService.getBank(bic);
-      return { message: 'request successful' };
-    } catch (error) {
-      throw new ExceptionsHandler(error);
-    }
+  @UseFilters(AllHttpExceptionsFilter)
+  async FetchBank(@Param('bic') bic: string) {
+    this.databaseServiceService.getBank(bic);
+    return;
   }
 
   @Get()
-  @UseFilters(AllExceptionsFilter)
-  FetchBanks() {
-    try {
-      this.databaseServiceService.getBanks();
-      return { message: 'request successful' };
-    } catch (error) {
-      throw new ExceptionsHandler(error);
-    }
+  @UseFilters(AllHttpExceptionsFilter)
+  async FetchBanks() {
+    this.databaseServiceService.getBanks();
+    return;
   }
 }
