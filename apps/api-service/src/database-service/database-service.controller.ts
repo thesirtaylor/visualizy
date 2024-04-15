@@ -5,12 +5,14 @@ import {
   Param,
   Post,
   UseFilters,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { DatabaseServiceService } from './database-service.service';
 import { CreateBankDto } from '@nest-microservices/shared/dto';
 import { AllExceptionsFilter } from './exception-filters/wildcard.exception.filters';
 import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
+import { AuthGuard } from './auth-guards.ts/auth-guard';
 
 @Controller('bank')
 export class DatabaseServiceController {
@@ -19,6 +21,7 @@ export class DatabaseServiceController {
   ) {}
 
   @Post()
+  @UseGuards(AuthGuard)
   @UseFilters(AllExceptionsFilter)
   CreateBank(@Body(ValidationPipe) createBankDto: CreateBankDto) {
     try {
@@ -30,6 +33,7 @@ export class DatabaseServiceController {
   }
 
   @Get(':bic')
+  @UseGuards(AuthGuard)
   @UseFilters(AllExceptionsFilter)
   FetchBank(@Param('bic') bic: string) {
     try {
