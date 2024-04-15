@@ -18,7 +18,6 @@ export class DatabaseServiceService {
     const data = (await this.bankRepository.findOne({ where: { bic } })).get({
       plain: true,
     });
-    console.log(data);
     return data;
   }
 
