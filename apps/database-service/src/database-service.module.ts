@@ -3,12 +3,14 @@ import { DatabaseServiceController } from './database-service.controller';
 import { DatabaseServiceService } from './database-service.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { DatabaseConfig } from '../../../libs/shared/src/lib/configs/database.config';
+import { DatabaseConfig } from '@nest-microservices/shared/config';
 import { Bank } from '@nest-microservices/shared/entity';
 import { BanksProviders } from './database.providers';
-
+import { LoggerModule } from '../../../libs/shared/src/lib/logger';
+import { AppLoggerService } from '../../../libs/shared/src/lib/logger';
 @Module({
   imports: [
+    LoggerModule,
     ConfigModule.forRoot({
       load: [DatabaseConfig],
     }),
@@ -25,6 +27,6 @@ import { BanksProviders } from './database.providers';
     }),
   ],
   controllers: [DatabaseServiceController],
-  providers: [DatabaseServiceService, ...BanksProviders],
+  providers: [DatabaseServiceService, AppLoggerService, ...BanksProviders],
 })
 export class DatabaseServiceModule {}

@@ -31,14 +31,14 @@ export class DatabaseServiceController {
   @UseGuards(AuthGuard)
   @UseFilters(AllHttpExceptionsFilter)
   async FetchBank(@Param('bic') bic: string) {
-    this.databaseServiceService.getBank(bic);
+    await this.databaseServiceService.getBank(bic);
     return;
   }
 
   @Get()
   @UseFilters(AllHttpExceptionsFilter)
   async FetchBanks() {
-    this.databaseServiceService.getBanks();
+    await this.databaseServiceService.getBanks();
     return;
   }
 }

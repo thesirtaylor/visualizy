@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-// import { InjectModel } from '@nestjs/sequelize';
 import { Bank } from '@nest-microservices/shared/entity';
 import { CreateBankDto } from '@nest-microservices/shared/dto';
 
@@ -15,10 +14,8 @@ export class DatabaseServiceService {
   }
 
   async findOne(bic: string): Promise<Bank> {
-    const data = (await this.bankRepository.findOne({ where: { bic } })).get({
-      plain: true,
-    });
-    return data;
+    const data = await this.bankRepository.findOne({ where: { bic } });
+    return data?.get({ plain: true });
   }
 
   async findAll(): Promise<Array<Bank>> {

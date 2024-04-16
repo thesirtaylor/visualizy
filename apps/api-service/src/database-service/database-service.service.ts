@@ -2,14 +2,18 @@ import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
 import { CreateBankDto } from '@nest-microservices/shared/dto';
 import { Bank } from '@nest-microservices/shared/entity';
-import { AppRedisService } from '../../../../libs/shared/src/lib/redis/redis.service';
+import { AppRedisService } from '../../../../libs/shared/src/lib/redis';
+import { AppLoggerService } from '../../../../libs/shared/src/lib/logger';
 
 @Injectable()
 export class DatabaseServiceService implements OnModuleInit {
   constructor(
     @Inject('DATABASE_MICROSERVICE') private readonly dbclient: ClientKafka,
     private readonly redisClient: AppRedisService,
-  ) {}
+    private readonly logger: AppLoggerService,
+  ) {
+    this.logger.setContext(DatabaseServiceService.name);
+  }
 
   async onModuleInit() {
     this.dbclient.subscribeToResponseOf('get_bank');
@@ -26,7 +30,7 @@ export class DatabaseServiceService implements OnModuleInit {
     return this.dbclient
       .send('get_bank', JSON.stringify({ bic }))
       .subscribe(async (bank: Bank) => {
-        console.log(bank);
+        this.logger.log({ bank });
       });
   }
 
@@ -34,7 +38,7 @@ export class DatabaseServiceService implements OnModuleInit {
     return this.dbclient
       .send('get_banks', '')
       .subscribe((banks: Array<Bank>) => {
-        console.log(banks);
+        this.logger.log({ banks });
       });
   }
 }

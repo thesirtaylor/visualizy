@@ -22,6 +22,8 @@
         "@nest-microservices/shared/entity": ["libs/shared/src/lib/entity/index.ts"],
         "@nest-microservices/shared/exception": ["libs/shared/src/lib/exception-filters/index.ts"],
         "@nest-microservices/shared/config": ["libs/shared/src/lib/configs/index.ts"],
+        "@nest-microservices/shared/redis": ["libs/shared/src/lib/redis/index.ts"],
+        "@nest-microservices/shared/loggger": ["libs/shared/src/lib/logger/index.ts"],
     }
   }
 }
