@@ -1,15 +1,24 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Bank } from '@nest-microservices/shared/entity';
-import { CreateBankDto } from '@nest-microservices/shared/dto';
+import { Bank } from '../../../libs/shared/src/lib/entity';
+import { CreateBankDto } from '../../../libs/shared/src/lib/dto';
+import { AppLoggerService } from '../../../libs/shared/src/lib/logger';
 
 @Injectable()
 export class DatabaseServiceService {
-  constructor(@Inject('BANKS_PROVIDERS') private bankRepository: typeof Bank) {}
+  [x: string]: any;
+  constructor(
+    @Inject('BANKS_PROVIDERS') private bankRepository: typeof Bank,
+    readonly logger: AppLoggerService,
+  ) {
+    this.logger.setContext(DatabaseServiceService.name);
+  }
 
   async create(bank: CreateBankDto) {
     const data = (await this.bankRepository.create({ ...bank })).get({
       plain: true,
     });
+    const { name } = data;
+    this.logger.log(name);
     return data;
   }
 

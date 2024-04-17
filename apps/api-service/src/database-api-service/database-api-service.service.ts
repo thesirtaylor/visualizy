@@ -1,18 +1,18 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
-import { CreateBankDto } from '@nest-microservices/shared/dto';
-import { Bank } from '@nest-microservices/shared/entity';
+import { CreateBankDto } from '../../../../libs/shared/src/lib/dto';
+import { Bank } from '../../../../libs/shared/src/lib/entity';
 import { AppRedisService } from '../../../../libs/shared/src/lib/redis';
 import { AppLoggerService } from '../../../../libs/shared/src/lib/logger';
 
 @Injectable()
-export class DatabaseServiceService implements OnModuleInit {
+export class DatabaseApiServiceService implements OnModuleInit {
   constructor(
     @Inject('DATABASE_MICROSERVICE') private readonly dbclient: ClientKafka,
     private readonly redisClient: AppRedisService,
-    private readonly logger: AppLoggerService,
+    readonly logger: AppLoggerService,
   ) {
-    this.logger.setContext(DatabaseServiceService.name);
+    this.logger.setContext(DatabaseApiServiceService.name);
   }
 
   async onModuleInit() {

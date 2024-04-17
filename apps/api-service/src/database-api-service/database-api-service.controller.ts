@@ -8,17 +8,17 @@ import {
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
-import { DatabaseServiceService } from './database-service.service';
-import { CreateBankDto } from '@nest-microservices/shared/dto';
-import { AllHttpExceptionsFilter } from '@nest-microservices/shared/exception';
+import { DatabaseApiServiceService } from './database-api-service.service';
+import { CreateBankDto } from '../../../../libs/shared/src/lib/dto';
+import { AllHttpExceptionsFilter } from '../../../../libs/shared/src/lib/exception-filters';
 import { AuthGuard } from './auth-guards.ts/auth-guard';
 import { ApiHeader, ApiBody } from '@nestjs/swagger';
 import { BodyApi, HeaderApi } from './openapi';
 
 @Controller('bank')
-export class DatabaseServiceController {
+export class DatabaseServiceApiController {
   constructor(
-    private readonly databaseServiceService: DatabaseServiceService,
+    private readonly databaseApiServiceService: DatabaseApiServiceService,
   ) {}
 
   @Post()
@@ -27,7 +27,7 @@ export class DatabaseServiceController {
   @UseGuards(AuthGuard)
   @UseFilters(AllHttpExceptionsFilter)
   async CreateBank(@Body(ValidationPipe) createBankDto: CreateBankDto) {
-    await this.databaseServiceService.createBank(createBankDto);
+    await this.databaseApiServiceService.createBank(createBankDto);
     return;
   }
 
@@ -36,14 +36,14 @@ export class DatabaseServiceController {
   @UseGuards(AuthGuard)
   @UseFilters(AllHttpExceptionsFilter)
   async FetchBank(@Param('bic') bic: string) {
-    await this.databaseServiceService.getBank(bic);
+    await this.databaseApiServiceService.getBank(bic);
     return;
   }
 
   @Get()
   @UseFilters(AllHttpExceptionsFilter)
   async FetchBanks() {
-    await this.databaseServiceService.getBanks();
+    await this.databaseApiServiceService.getBanks();
     return;
   }
 }

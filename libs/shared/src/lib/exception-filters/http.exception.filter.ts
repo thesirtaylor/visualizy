@@ -33,7 +33,7 @@ export class AllHttpExceptionsFilter implements ExceptionFilter {
       message: exception.message,
     };
 
-    this.logger.error(responseBody);
+    // this.logger.error(responseBody);
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
   }
 }
