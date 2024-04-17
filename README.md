@@ -1,73 +1,63 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This monorepo houses a set of basic endpoints designed to manage bank entities. The endpoints include:
 
-## Installation
+Create Bank Entity: A POST request to create a bank entity.
+Fetch Bank by BIC: A GET request to fetch a particular bank by its Bank Identification Code (BIC).
+Fetch All Banks: A GET request to retrieve all banks existing in the database.
 
-```bash
-$ yarn install
-```
+To prevent duplicate bank creation requests, we've implemented an idempotency key mechanism. This mechanism works by hashing the request payload and storing it in an in-memory database for a set duration. This ensures a particular bank can only be created once within that timeframe, even if the server restarts.
 
-## Running the app
+This code demonstrates idempotency key a way of preventing transaction duplication, which we discussed earlier as a potential solution. While event step monitoring could also be implemented to track successful events and avoid re-execution after a system crash, there is no use case for it in this particular project.
 
-```bash
-# development
-$ yarn run start
+#### Server Features:
 
-# watch mode
-$ yarn run start:dev
+##### File structure:
+This is a monorepo, therefore there is a libs library where all code resources shared between the services reside.
 
-# production mode
-$ yarn run start:prod
-```
+##### Logging: 
+Local logging is implemented to monitor data and errors. This is particularly useful as the API gateway cannot receive the actual response body from the microservice.
+While the implementation is basic, a more sophisticated and persistent approach would be taken in a production environment.
 
-## Test
+##### Testing: 
+Tests have been written for most components, ensuring the reliability and correctness of the codebase. Tests can be executed with 
 
 ```bash
-# unit tests
-$ yarn run test
+#run all tests
+yarn run test:ci
 
-# e2e tests
-$ yarn run test:e2e
+#run unit tests
+yarn run test
 
-# test coverage
-$ yarn run test:cov
+#run e2e tests
+yarn run test:e2e
 ```
 
-## Support
+##### Endpoint Security:
+ Endpoints are accessible only when an id (prime number) is provided in the request header.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+##### Deployment:
+For local deployment without Docker, ensure Zookeeper, Kafka, and Redis are running locally on your machine, we are using a connection string for postgresql so there is no need to worry about it. 
+Run ```yarn run start:all``` to start all servers concurrently
 
-## Stay in touch
+With Docker, simply run ```docker compose up```. 
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+###### Note: Using Kafka in docker successfully has been a challenge, so local deployment is advised for testing.
 
-## License
+##### Documentation:
+A basic OpenAPI documentation is implemented to show how the API gateway endpoints function.
 
-Nest is [MIT licensed](LICENSE).
+
+~
+it is worth noting that the .env was intentionally included in the push to github for the reviewer to see, this would not be done in a proper project
+~ 
+
+##### Extra note
+I believe it is right that I mention that one of the reasons for the delay in submission is my ongoing learning process with Docker. While I haven't recently dockerized standard applications, I'm actively working on improving my Docker skills. In the meantime, I'm continuing to learn how to effectively utilize docker without depending on a devOps engineer.
+
+
+I look forward to hearing from you,
+Cheers.
