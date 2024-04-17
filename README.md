@@ -5,9 +5,11 @@
 
 This monorepo houses a set of basic endpoints designed to manage bank entities. The endpoints include:
 
-Create Bank Entity: A POST request to create a bank entity.
-Fetch Bank by BIC: A GET request to fetch a particular bank by its Bank Identification Code (BIC).
-Fetch All Banks: A GET request to retrieve all banks existing in the database.
+- Create Bank Entity: A POST request to create a bank entity.
+
+- Fetch Bank by BIC: A GET request to fetch a particular bank by its Bank Identification Code (BIC).
+
+- Fetch All Banks: A GET request to retrieve all banks existing in the database. This endpoint doesn't require authentication.
 
 To prevent duplicate bank creation requests, we've implemented an idempotency key mechanism. This mechanism works by hashing the request payload and storing it in an in-memory database for a set duration. This ensures a particular bank can only be created once within that timeframe, even if the server restarts.
 
