@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DatabaseServiceService } from './database-service.service';
 import { Bank } from '../../../libs/shared/src/lib/entity';
-import { AppLoggerService } from './../../../libs/shared/src/lib/logger';
+import { AppLoggerService } from '../../../libs/shared/src/lib/logger';
 import {
   validBankData,
   createdMockBank,

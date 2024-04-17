@@ -2,7 +2,9 @@ export function DatabaseConfig() {
   return {
     database: {
       uri: process.env.URI,
-      redis_uri: process.env.REDIS_URL || 'redis://localhost:6379',
+      redis_host: process.env.REDIS_HOST,
+      redis_port: process.env.REDIS_PORT,
+      redis_password: process.env.REDIS_PASSWORD,
     },
   };
 }

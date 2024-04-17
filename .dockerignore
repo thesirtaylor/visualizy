@@ -1,0 +1,13 @@
+node_modules/
+
+package-lock.json
+yarn.lock
+
+coverage/
+
+.env*  # Matches any file starting with ".env" and ending with any character
+
+.idea/
+.vscode/
+
+dist/

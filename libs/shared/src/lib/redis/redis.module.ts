@@ -21,7 +21,8 @@ import { AppLoggerService } from '../logger';
           readyLog: true,
           errorLog: true,
           config: {
-            url: configService.get<string>('database.redis_url'),
+            host: configService.get<string>('database.redis_host'),
+            port: configService.get<number>('database.redis_port'),
             onClientCreated: async () => {
               logger
                 .setContext(AppRedisModule.name)

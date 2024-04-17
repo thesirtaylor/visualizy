@@ -15,7 +15,7 @@ import { AppLoggerService } from '../../../../libs/shared/src/lib/logger';
         options: {
           client: {
             clientId: 'database',
-            brokers: ['localhost:9092'],
+            brokers: ['localhost:9092', 'localhost:9093'],
           },
           consumer: {
             groupId: 'database-consumer',
