@@ -15,7 +15,7 @@ import { AppLoggerService } from '../../../../libs/shared/src/lib/logger';
         options: {
           client: {
             clientId: 'database',
-            brokers: [process.env.KAFKA_URI],
+            brokers: ['kafka:9092'],
           },
           consumer: {
             groupId: 'database-consumer',
