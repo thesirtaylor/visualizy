@@ -11,7 +11,7 @@ This monorepo houses a set of basic endpoints designed to manage bank entities. 
 
 - Fetch All Banks: A GET request to retrieve all banks existing in the database. This endpoint doesn't require authentication.
 
-To prevent duplicate bank creation requests, we've implemented an idempotency key mechanism. This mechanism works by hashing the request payload and storing it in an in-memory database for a set duration. This ensures a particular bank can only be created once within that timeframe, even if the server restarts.
+To prevent duplicate bank creation requests, I've implemented an idempotency key mechanism. This mechanism works by hashing the request payload and storing it in an in-memory database for a set duration. This ensures a particular bank can only be created once within that timeframe, even if the server restarts.
 
 This code demonstrates idempotency key a way of preventing transaction duplication, which we discussed earlier as a potential solution. While event step monitoring could also be implemented to track successful events and avoid re-execution after a system crash, there is no use case for it in this particular project.
 
