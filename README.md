@@ -13,6 +13,8 @@ This monorepo houses a set of basic endpoints designed to manage bank entities. 
 
 To prevent duplicate bank creation requests, I've implemented an idempotency key mechanism. This mechanism works by hashing the request payload and storing it in an in-memory database for a set duration. This ensures a particular bank can only be created once within that timeframe, even if the server restarts.
 
+To see this feature in demonstration, check the log whenever a unique payload is sent to database you would notice the bank name being logged to console, but if that same payload is sent repeatedly nothing would be logged, meaning that payload did not make it out of the producer server.
+
 This code demonstrates idempotency keys, a way of preventing request duplication, which we discussed earlier as a potential solution. While event step monitoring could also be implemented to track successful events and avoid re-execution of event steps in a transaction even after a system crash, there is no use case for it in this particular project.
 
 #### Server Features:
@@ -24,7 +26,7 @@ This is a monorepo, therefore there is a libs library where all code resources s
  Endpoints are accessible only when an id (prime number) is provided in the request header.
 
 ##### Deployment:
-For local development without Docker, ensure Zookeeper, Kafka, and Redis are running locally on your machine, we are using a connection string for postgresql so there is no need to worry about it. 
+For local development without Docker, ensure Zookeeper, Kafka, PostgreSQL and Redis are running locally on your machine. 
 Run ```yarn run start:all``` to start all servers concurrently
 
 With Docker, simply run ```docker compose up```. 
