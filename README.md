@@ -20,9 +20,14 @@ This code demonstrates idempotency keys, a way of preventing request duplication
 ##### File structure:
 This is a monorepo, therefore there is a libs library where all code resources shared between the services reside.
 
-##### Logging: 
-Local logging is implemented to monitor data and errors. This is particularly useful as the API gateway cannot receive the actual response body from the microservice.
-While the implementation is basic, a more sophisticated and persistent approach would be taken in a production environment.
+##### Endpoint Security:
+ Endpoints are accessible only when an id (prime number) is provided in the request header.
+
+##### Deployment:
+For local development without Docker, ensure Zookeeper, Kafka, and Redis are running locally on your machine, we are using a connection string for postgresql so there is no need to worry about it. 
+Run ```yarn run start:all``` to start all servers concurrently
+
+With Docker, simply run ```docker compose up```. 
 
 ##### Testing: 
 Tests have been written for most components, ensuring the reliability and correctness of the codebase. Tests can be executed with 
@@ -38,14 +43,9 @@ yarn run test
 yarn run test:e2e
 ```
 
-##### Endpoint Security:
- Endpoints are accessible only when an id (prime number) is provided in the request header.
-
-##### Deployment:
-For local deployment without Docker, ensure Zookeeper, Kafka, and Redis are running locally on your machine, we are using a connection string for postgresql so there is no need to worry about it. 
-Run ```yarn run start:all``` to start all servers concurrently
-
-With Docker, simply run ```docker compose up```. 
+##### Logging: 
+Local logging is implemented to monitor data and errors. This is particularly useful as the API gateway cannot receive the actual response body from the microservice.
+While the implementation is basic, a more sophisticated and persistent approach would be taken in a production environment.
 
 ##### Documentation:
 A basic OpenAPI documentation is implemented to show how the API gateway endpoints function.
