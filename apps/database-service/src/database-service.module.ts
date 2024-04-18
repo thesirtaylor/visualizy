@@ -18,7 +18,6 @@ import { AppLoggerService } from '../../../libs/shared/src/lib/logger';
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         dialect: 'postgres',
-        uri: configService.get<string>('database.uri'),
         host: configService.get<string>('database.postgres_host'),
         username: configService.get<string>('database.postgres_username'),
         password: configService.get<string>('database.postgres_password'),
