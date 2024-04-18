@@ -47,8 +47,6 @@ Run ```yarn run start:all``` to start all servers concurrently
 
 With Docker, simply run ```docker compose up```. 
 
-###### Note: Using Kafka in docker successfully has been a challenge, so local deployment is advised for testing.
-
 ##### Documentation:
 A basic OpenAPI documentation is implemented to show how the API gateway endpoints function.
 
@@ -56,9 +54,6 @@ A basic OpenAPI documentation is implemented to show how the API gateway endpoin
 ~
 it is worth noting that the .env was intentionally included in the push to github for the reviewer to see, this would not be done in a proper project
 ~ 
-
-##### Extra note
-I believe it is right that I mention that one of the reasons for the delay in submission is my ongoing learning process with Docker. While I haven't recently dockerized standard applications, I'm actively working on improving my Docker skills. In the meantime, I'm continuing to learn how to effectively utilize docker without depending on a devOps engineer.
 
 
 I look forward to hearing from you,
