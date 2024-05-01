@@ -24,7 +24,7 @@ describe('AppController (e2e)', () => {
   });
 
   describe('/DatabaseApiService /POST', () => {
-    it('should fail with a 404 when no auth header set', async () => {
+    it('should fail with a 401 when no auth header set', async () => {
       const res = await request(app.getHttpServer()).post('/bank').send(data);
 
       expect(res.statusCode).toBe(401);
